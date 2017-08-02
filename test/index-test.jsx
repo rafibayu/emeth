@@ -1,7 +1,7 @@
-import theme, { themeClass, settings } from 'emethe';
+import theme, { themeClass, settings } from 'emeth';
 import expect from 'expect';
-import { execLoop } from '../src/util'
 
+const execLoop = c => c();
 describe('theme', function () {
     it('should return in the right order', function () {
         const d  = [
