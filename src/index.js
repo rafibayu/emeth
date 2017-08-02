@@ -1,7 +1,9 @@
 'use strict';
 
-const themes = [];
-let themeMap = {};
+const themes     = [];
+let themeMap     = {};
+const EMPTY_FUNC = () => {
+};
 /**
  * Adds a theme to the list of themes, returns a function that will remove said
  * theme
@@ -9,12 +11,15 @@ let themeMap = {};
  * @param diffTheme
  */
 export default function (diffTheme) {
+    if (diffTheme == null) {
+        return EMPTY_FUNC;
+    }
     themes.unshift(diffTheme);
     themeMap = {};
     return () => {
         const idx = themes.indexOf(diffTheme);
         if (idx > -1) {
-            themes.splice(1, 0);
+            themes.splice(idx, 1);
             themeMap = {};
         }
     }
@@ -75,7 +80,7 @@ export const themeClass = (Clazz) => {
             //if no matching classes are found pass it through.
             if (!found) {
                 if (settings.ignore.indexOf(name) == -1) {
-                    notfound.push(name);
+                    notfound[notfound.length] = name;
                 }
                 ret[r++] = name;
             }
