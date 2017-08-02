@@ -20,7 +20,7 @@ Or run it
 ## Installation
 ```sh
  $ npm install emeth
-``
+```
 
 ## Usage
 There are three things at play using emeth.
@@ -31,19 +31,23 @@ To access the theme css, pass your class to themeClass and it will return
 a function that can be used for injecting your classes
 
 ### Installing a theme
+Setup your components in module like so.
 theme.js
-```js
+```es6
  import './YourComponent.less';
  import emeth from 'emeth';
- emeth({YourComponent});
+ export default emeth({YourComponent});
 
 ```
 
 ### Accessing a theme
 YourComponent.js
-```js
+```jsx
 
 import {themeClass} from 'emeth';
+//you may not want to do this, as it will make it hard to use different
+// themes with your app.   but it needs to be somewhere
+import './theme';
 
 export default class YourComponent extends PureComponent {
 
@@ -57,4 +61,6 @@ const tc = themeClass(YourComponent);
 
 
 ```
+
+### Using a theme
 
