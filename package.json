@@ -3,18 +3,16 @@
   "version": "1.0.0",
   "description": "CSS module theming tool",
   "main": "lib/index",
-  "dependencies": {
-    "expect": "^1.20.2"
-  },
-  "repository": "",
+  "repository": "git@github.com:jspears/emeth.git",
   "publishConfig": {
-    "registry": ""
+    "registry": "https://registry.npmjs.org"
   },
-  "author": "",
-  "license": "",
+  "author": "Justin Spears <speajus@gmail.com>",
+  "license": "BSD",
   "devDependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "expect": "^1.20.2",
     "subschema-dev-support": "^2.2.9"
   },
   "scripts": {
