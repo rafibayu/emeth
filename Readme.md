@@ -1,14 +1,16 @@
 Emeth
 ===
-
+Emeth is a super simple little tool for making css modules easier to deal with.
+It allows for classes to be themed, with little extra work, and makes it easy
+to find css classes that are  not being used.
 
 ##Demo
-See it in action [here]()
+See it in action [here](https://jspears.github.io/emeth)
 
 Or run it 
 
 ```sh
-  git clone 
+  git clone git@github.com:jspears/emeth.git
   cd emeth
   npm install
   npm run server &

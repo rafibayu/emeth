@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+//I'm importing theme here but you can do it anywhere.
 import './theme';
 import { themeClass } from 'emeth'
 

@@ -1,3 +1,5 @@
+'use strict';
+
 const themes = [];
 let themeMap = {};
 /**
@@ -26,8 +28,10 @@ export default function (diffTheme) {
  * @param names
  * @returns {string}
  */
-export const settings = {
-    debug: process.env.NODE_ENV != 'PRODUCTION',
+export const settings   = {
+    debug : process.env.NODE_ENV != 'PRODUCTION',
+    //list of classes to ignore warnings for.
+    ignore: [],
     warn(...args) {
         if (this.debug) {
             console.warn(...args);
@@ -70,7 +74,9 @@ export const themeClass = (Clazz) => {
             }
             //if no matching classes are found pass it through.
             if (!found) {
-                notfound.push(name);
+                if (settings.ignore.indexOf(name) == -1) {
+                    notfound.push(name);
+                }
                 ret[r++] = name;
             }
         }
@@ -81,4 +87,4 @@ export const themeClass = (Clazz) => {
 
         return (themeMap[cacheKey] = ret.join(' '));
     };
-}
+};
