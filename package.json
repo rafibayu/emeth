@@ -4,6 +4,7 @@
   "description": "CSS module theming tool",
   "main": "lib",
   "source": "src",
+  "types": "types",
   "repository": "git@github.com:jspears/emeth.git",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
