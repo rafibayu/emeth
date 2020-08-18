@@ -33,28 +33,18 @@
   "mrbuilder": {
     "plugin": "./plugin",
     "plugins": [
+      "./plugin",
       "@mrbuilder/plugin-typescript"
     ],
     "env": {
-      "start": {
+      "demo": {
         "plugins": [
-          "./plugin"
-        ]
-      },
-      "test": {
-        "plugins": [
-          "./plugin",
           [
             "@mrbuilder/plugin-typescript",
             {
               "useBabel": true
             }
           ]
-        ]
-      },
-      "karma": {
-        "plugins": [
-          "./plugin"
         ]
       }
     }
