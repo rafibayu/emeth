@@ -1,14 +1,13 @@
-//__EMETH_THEMES needs to hook into global so that
-import {Theme, ThemeForClazz} from './theme';
+import {ThemeForClazz, Types} from './types';
 
-function getGlobal() {
+function getGlobal(): any {
     return (function (global) {
         return global;
     })(new Function('return this;')());
 }
 
 const glob = getGlobal();
-const themes: Theme[] = glob.__EMETH_THEMES || (glob.__EMETH_THEMES = []);
+const themes: Types[] = glob.__EMETH_THEMES || (glob.__EMETH_THEMES = []);
 let themeMap: Record<string, string> = {};
 const EMPTY_FUNC = () => {
 };
@@ -18,7 +17,7 @@ const EMPTY_FUNC = () => {
  *
  * @param diffTheme
  */
-export default function (diffTheme: Theme): () => void {
+export default function (diffTheme: Types): () => void {
     if (diffTheme == null) {
         return EMPTY_FUNC;
     }
@@ -33,7 +32,7 @@ export default function (diffTheme: Theme): () => void {
     }
 }
 
-const ignore:string[] = [];
+const ignore: string[] = [];
 /**
  * Looks in the props for both ThemeClassName
  * and ClassName of the corresponding list of names.
