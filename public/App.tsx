@@ -1,4 +1,4 @@
-import React        from 'react';
+import React from 'react';
 import {themeClass} from 'emeth';
 
 
@@ -12,7 +12,7 @@ const tc = themeClass({displayName: 'App'});
  * @return {JSX.Element}
  * @constructor
  */
-export const App = ({name}) =>{
+export const App: React.FC<{ name: string }> = ({name}) => {
     const className = tc('container');
     console.log('App', className);
     return (<p className={className}>

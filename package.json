@@ -16,8 +16,11 @@
     "@mrbuilder/cli": "^4.3.0",
     "@mrbuilder/preset-lib": "^4.3.0",
     "@mrbuilder/preset-app": "^4.3.0",
-    "@mrbuilder/preset-test": "^4.3.0"
-
+    "@mrbuilder/preset-test": "^4.3.0",
+    "@mrbuilder/plugin-typescript": "^4.3.0",
+    "@types/mocha": "^8.0.3",
+    "@types/chai": "^4.2.12",
+    "@types/react": "^16.9.46"
   },
   "scripts": {
     "karma": "mrbuilder",
@@ -25,10 +28,13 @@
     "start": "mrbuilder",
     "demo": "mrbuilder --demo ./docs",
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
-    "prepare": "mrbuilder"
+    "prepare": "tsc"
   },
   "mrbuilder": {
     "plugin": "./plugin",
+    "plugins": [
+      "@mrbuilder/plugin-typescript"
+    ],
     "env": {
       "start": {
         "plugins": [
@@ -37,7 +43,13 @@
       },
       "test": {
         "plugins": [
-          "./plugin"
+          "./plugin",
+          [
+            "@mrbuilder/plugin-typescript",
+            {
+              "useBabel": true
+            }
+          ]
         ]
       },
       "karma": {

@@ -1,6 +1,15 @@
 //__EMETH_THEMES needs to hook into global so that
-const themes     = window.__EMETH_THEMES || (window.__EMETH_THEMES = []);
-let themeMap     = {};
+import {Theme, ThemeForClazz} from './theme';
+
+function getGlobal() {
+    return (function (global) {
+        return global;
+    })(new Function('return this;')());
+}
+
+const glob = getGlobal();
+const themes: Theme[] = glob.__EMETH_THEMES || (glob.__EMETH_THEMES = []);
+let themeMap: Record<string, string> = {};
 const EMPTY_FUNC = () => {
 };
 /**
@@ -9,7 +18,7 @@ const EMPTY_FUNC = () => {
  *
  * @param diffTheme
  */
-export default function (diffTheme) {
+export default function (diffTheme: Theme): () => void {
     if (diffTheme == null) {
         return EMPTY_FUNC;
     }
@@ -24,6 +33,7 @@ export default function (diffTheme) {
     }
 }
 
+const ignore:string[] = [];
 /**
  * Looks in the props for both ThemeClassName
  * and ClassName of the corresponding list of names.
@@ -32,11 +42,11 @@ export default function (diffTheme) {
  * @param names
  * @returns {string}
  */
-export const settings   = {
-    debug : process.env.NODE_ENV != 'PRODUCTION',
+export const settings = {
+    debug: process.env.NODE_ENV != 'PRODUCTION',
     //list of classes to ignore warnings for.
-    ignore: [],
-    warn(...args) {
+    ignore,
+    warn(...args: any[]): void {
         if (this.debug) {
             console.warn(...args);
         }
@@ -47,20 +57,20 @@ export const settings   = {
  * @param Clazz
  * @returns {function(...[*])}
  */
-export const themeClass = (Clazz) => {
-    const displayName = Clazz.displayName || Clazz;
+export const themeClass: ThemeForClazz = (Clazz) => {
+    const displayName = typeof Clazz === 'string' ? Clazz : Clazz.displayName;
     if (!displayName) {
         settings.warn(`no display name for themed class %s`, Clazz);
     }
 
     return (...names) => {
         const cacheKey = `${displayName}/${names.join('.')}`;
-        const inCache  = cacheKey in themeMap;
+        const inCache = cacheKey in themeMap;
         if (inCache) {
             return themeMap[cacheKey];
         }
-        const notfound    = [];
-        const ret         = [];
+        const notfound = [];
+        const ret = [];
         const themeLength = themes.length;
         for (let i = 0, r = 0, l = names.length; i < l; i++) {
             const name = names[i];
@@ -72,7 +82,7 @@ export const themeClass = (Clazz) => {
                 const current = themes[t][displayName];
                 if (current && current[name]) {
                     ret[r++] = current[name];
-                    found    = true;
+                    found = true;
                 }
             }
             //if no matching classes are found pass it through.

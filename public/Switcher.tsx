@@ -1,29 +1,29 @@
-import React, {useState, useCallback}   from 'react';
+import React, {useCallback, useState} from 'react';
 //I'm importing theme here but you can do it anywhere.
 import emeth, {themeClass} from 'emeth'
-import blue                from './blue';
-import red                 from './red'
-import {App}               from './App';
+import blue from './blue';
+import red from './red'
+import {App} from './App';
 import './theme';
 
-const THEMES = {
+const THEMES: Record<string, Record<string, Record<string, string>>> = {
     blue,
     red
 };
-console.log(THEMES.red.App.container, THEMES.blue.App.container);
-let prev;
+
+let prev: () => void;
 const tc = themeClass('Switcher');
 
-export const Switcher = function (props) {
+export const Switcher: React.FC = () => {
     const [current, setCurrent] = useState('blue');
 
-    const handleTheme = useCallback(({target: {value}}) => {
+    const handleTheme = useCallback(({target: {value}}: React.ChangeEvent<HTMLSelectElement>): void => {
         setCurrent(value);
         if (prev) {
             prev();
         }
-        console.log('Theme', value, THEMES[value], THEMES[value].App, THEMES[value].App.container);
-        prev = emeth(THEMES[value]);
+        if (THEMES[value])
+            prev = emeth(THEMES[value]);
     }, [current]);
 
     return <div className={tc('container')}>
