@@ -2,26 +2,37 @@
   "name": "emeth",
   "version": "1.0.1",
   "description": "CSS module theming tool",
-  "main": "lib/index",
+  "main": "lib",
+  "source": "src",
   "repository": "git@github.com:jspears/emeth.git",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "author": "Justin Spears <speajus@gmail.com>",
-  "license": "BSD",
+  "license": "BSD0",
   "devDependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "expect": "^1.20.2",
-    "subschema-dev-support": "^2.2.11"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "@mrbuilder/cli": "^4.3.0",
+    "@mrbuilder/preset-lib": "^4.3.0",
+    "@mrbuilder/preset-app": "^4.3.0"
   },
   "scripts": {
-    "karma": "subschema-karma",
-    "test": "subschema-karma --single-run --browsers Firefox",
-    "server": "subschema-webpack-dev-server",
-    "demo": "subschema-webpack --demo ./docs",
+    "karma": "mrbuilder",
+    "test": "mrbuilder --browsers Firefox",
+    "start": "mrbuilder",
+    "demo": "mrbuilder --demo ./docs",
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
-    "dist": "subschema-babel",
-    "preversion": "npm run dist && npm run test"
+    "prepare": "mrbuilder"
+  },
+  "mrbuilder": {
+    "plugin": "./plugin",
+    "env": {
+      "start": {
+        "plugins": [
+          "./plugin"
+        ]
+      }
+    }
   }
 }

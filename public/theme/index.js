@@ -1,4 +1,4 @@
-import emeth from 'emeth';
-import App from './App.less'
+import * as Switcher from './Switcher.module.css'
+import emeth         from 'emeth';
 
-emeth({ App });
+emeth({Switcher});

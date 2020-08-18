@@ -13,7 +13,7 @@ Or run it
   git clone git@github.com:jspears/emeth.git
   cd emeth
   npm install
-  npm run server &
+  npm run start &
   open http://localhost:8082
 ```
 

@@ -1,3 +1,2 @@
-import App from './App.less';
-
-export default { App };
+import App from './BlueApp.module.css';
+export default {App};

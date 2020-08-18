@@ -1,6 +1,5 @@
-'use strict';
-
-const themes     = [];
+//__EMETH_THEMES needs to hook into global so that
+const themes     = window.__EMETH_THEMES || (window.__EMETH_THEMES = []);
 let themeMap     = {};
 const EMPTY_FUNC = () => {
 };
@@ -49,14 +48,15 @@ export const settings   = {
  * @returns {function(...[*])}
  */
 export const themeClass = (Clazz) => {
-    const { displayName } = Clazz;
+    const displayName = Clazz.displayName || Clazz;
     if (!displayName) {
         settings.warn(`no display name for themed class %s`, Clazz);
     }
 
     return (...names) => {
         const cacheKey = `${displayName}/${names.join('.')}`;
-        if (cacheKey in themeMap) {
+        const inCache  = cacheKey in themeMap;
+        if (inCache) {
             return themeMap[cacheKey];
         }
         const notfound    = [];
@@ -64,9 +64,7 @@ export const themeClass = (Clazz) => {
         const themeLength = themes.length;
         for (let i = 0, r = 0, l = names.length; i < l; i++) {
             const name = names[i];
-            if (name == null || name === false || name === true || String(name)
-                                                                       .trim()
-                                                                   == '') {
+            if (name == null || name === false || name === true || String(name).trim() === '') {
                 continue;
             }
             let found = false;
@@ -88,8 +86,11 @@ export const themeClass = (Clazz) => {
         if (notfound.length) {
             settings.warn(`could not find a className for '%s' for '%s' `,
                 displayName, notfound.join(', '));
+            //don't cache misses.
+            return ret.join(' ');
         }
 
         return (themeMap[cacheKey] = ret.join(' '));
+
     };
 };

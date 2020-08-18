@@ -1,41 +1,26 @@
-import React from 'react';
-//I'm importing theme here but you can do it anywhere.
-import './theme';
-import { themeClass } from 'emeth'
-import blue from './blue';
-import theme from 'emeth';
+import React        from 'react';
+import {themeClass} from 'emeth';
 
-const THEMES = {
-    blue
-};
-export default class App extends React.Component {
-    state = {};
 
-    handleTheme = ({ target: { value } }) => {
-        //remove the current theme - default will not be removed.
-        this.state.theme && this.state.theme();
-        //its ok if its null, theme does not do anything then.
-        this.setState({ theme: theme(THEMES[value]) });
-    };
+const tc = themeClass({displayName: 'App'});
+/**
+ * The idea here is that we can statically call tc
+ * and it will resolve the className.   There is no __direct__ link
+ * between the theme and css.
+ *
+ * @param name
+ * @return {JSX.Element}
+ * @constructor
+ */
+export const App = ({name}) =>{
+    const className = tc('container');
+    console.log('App', className);
+    return (<p className={className}>
+        A really interesting paragraph of text. Or at least a sentence.
+        Or two. Or three.
 
-    render() {
-        return <div className={tc('container')}>
-            <h3 className={tc('header')}>Emeth</h3>
-            <select onChange={this.handleTheme}>
-                <option value='default'>Default</option>
-                <option value='blue'>Blue</option>
-            </select>
-            <p className={tc(
-                'example-of-class-that-does-not-exist-check-console',
-                'content')}>
-                A really interesting paragraph of text. Or at least a sentence.
-                Or two. Or three.
-
-                Check the console.log for a warning for the class that is not
-                defined.
-            </p>
-
-        </div>
-    }
+        Check the console.log for a warning for the class that is not
+        defined.
+        {name} of theme
+    </p>);
 }
-const tc = themeClass(App);
