@@ -15,11 +15,13 @@
     "react-dom": "^16.13.1",
     "@mrbuilder/cli": "^4.3.0",
     "@mrbuilder/preset-lib": "^4.3.0",
-    "@mrbuilder/preset-app": "^4.3.0"
+    "@mrbuilder/preset-app": "^4.3.0",
+    "@mrbuilder/preset-test": "^4.3.0"
+
   },
   "scripts": {
     "karma": "mrbuilder",
-    "test": "mrbuilder --browsers Firefox",
+    "test": "mrbuilder-karma --browsers Firefox",
     "start": "mrbuilder",
     "demo": "mrbuilder --demo ./docs",
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
@@ -29,6 +31,16 @@
     "plugin": "./plugin",
     "env": {
       "start": {
+        "plugins": [
+          "./plugin"
+        ]
+      },
+      "test": {
+        "plugins": [
+          "./plugin"
+        ]
+      },
+      "karma": {
         "plugins": [
           "./plugin"
         ]
