@@ -1,13 +1,6 @@
 import {ThemeForClazz, Types} from './types';
 
-function getGlobal(): any {
-    return (function (global) {
-        return global;
-    })(new Function('return this;')());
-}
-
-const glob = getGlobal();
-const themes: Types[] = glob.__EMETH_THEMES || (glob.__EMETH_THEMES = []);
+const themes: Types[] = window.__EMETH_THEMES || (window.__EMETH_THEMES = []);
 let themeMap: Record<string, string> = {};
 const EMPTY_FUNC = () => {
 };
